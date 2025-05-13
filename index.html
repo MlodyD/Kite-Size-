@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kitesurfing Survey</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <div class="container">
+    <h1>Kite Size Selection Based on Wind Speed and Rider Weight</h1>
+    <button onclick="losuj()">Draw Form</button>
+    <div id="link-container"></div>
+    <p>
+      Hi! My name is Maciej, I'm a computer science student, and I've been teaching kitesurfing for many years on the Hel Peninsula. 
+      Even as an experienced instructor, I often wonder what kite size would be best for a student under given wind conditions.
+    </p>
+    <p>
+      This inspired me to create an algorithm that helps select the correct kite size – as part of a project for a course related to artificial intelligence.
+      In order for such an algorithm to work effectively, I need as much data as possible – that's why I really appreciate you filling out the form!
+    </p>
+    <h2>
+      If you want to help even more, you can draw a form multiple times and fill it out again.  
+      Every response matters – thank you so much in advance! 🙏
+    </h2>
+   <p>If you're interested in the results of my study, after completing the work on this page, I will publish a link to the page where the algorithm will be available. See you on the water :))</p>
+  </div>
+
+  <script>
+  const arkusze = ["A", "B", "C", "D", "E"];
+  const filmy = [
+    "https://docs.google.com/forms/d/e/1FAIpQLSdUvK74p8C2h5___3IbhUrWtbtOSsHcePeIaAeXmROXeMjhDA/viewform?usp=dialog", // A
+    "https://docs.google.com/forms/d/e/1FAIpQLSePpfTStYR5Z-Xg7g2oTkVKJlKpkk390lBxbSLpk0IHOfmdnw/viewform?usp=dialog", // B
+    "https://docs.google.com/forms/d/e/1FAIpQLSdEGvazlFzfBZxqsfGieL58--fNab_u6JuZHxU5SBrNTQed8g/viewform?usp=dialog", // C
+    "https://docs.google.com/forms/d/e/1FAIpQLSfQ4Lq1biQdBjGhS9Vo8K9z657Z381zDxbziOigs70gDQn4sA/viewform?usp=dialog", // D
+    "https://docs.google.com/forms/d/e/1FAIpQLSdlmK7YJl_SU4cfa5xD607-ez5krl8Tb3qBbjDPC4ueaO29QQ/viewform?usp=dialog", // E
+  ];
+
+  // Store used forms only during one session (refresh = reset)
+  let wykorzystane = [];
+
+  function losuj() {
+    const dostepneIndeksy = filmy
+      .map((_, index) => index)
+      .filter(index => !wykorzystane.includes(index));
+
+    const container = document.getElementById("link-container");
+
+    if (dostepneIndeksy.length === 0) {
+      container.innerHTML = `
+        <p>🎉 Thank you! You've already filled out all the forms! </p>
+        <button disabled>All forms have been used</button>
+      `;
+      return;
+    }
+
+    const losowyIndex = dostepneIndeksy[Math.floor(Math.random() * dostepneIndeksy.length)];
+    wykorzystane.push(losowyIndex);
+
+    const link = filmy[losowyIndex];
+    container.innerHTML = `
+      <a href="${link}" target="_blank">
+        <button>Click to fill out form ${arkusze[losowyIndex]}</button>
+      </a>
+    `;
+  }
+</script>
+        
+</body>
+</html>
